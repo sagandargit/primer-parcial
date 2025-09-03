@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const taskRepository = require('./src/services/taskRepository');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,12 +10,9 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// Almacenamiento en memoria para las tareas
-let tasks = [];
-
 // API Routes
 app.get('/api/tasks', (req, res) => {
-    res.json(tasks);
+    res.json(taskRepository.getAll());
 });
 
 app.post('/api/tasks', (req, res) => {
@@ -24,23 +22,20 @@ app.post('/api/tasks', (req, res) => {
         date: req.body.date,
         completed: false
     };
-    tasks.push(task);
+    taskRepository.add(task);
     res.status(201).json(task);
 });
 
 app.put('/api/tasks/:id', (req, res) => {
-    const task = tasks.find(t => t.id === req.params.id);
+    const task = taskRepository.update(req.params.id, req.body);
     if (!task) return res.status(404).send('Tarea no encontrada');
-    
-    task.completed = req.body.completed !== undefined ? req.body.completed : task.completed;
-    task.title = req.body.title || task.title;
-    task.date = req.body.date || task.date;
-    
+
     res.json(task);
 });
 
 app.delete('/api/tasks/:id', (req, res) => {
-    tasks = tasks.filter(t => t.id !== req.params.id);
+    const removed = taskRepository.remove(req.params.id);
+    if (!removed) return res.status(404).send();
     res.status(204).send();
 });
 
