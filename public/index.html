@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gestor de Tareas</h1>
+        </header>
+        
+        <main>
+            <div class="tasks-section">
+                <div class="add-task">
+                    <input type="text" id="taskInput" placeholder="Nueva tarea...">
+                    <input type="date" id="taskDate">
+                    <button onclick="addTask()">Agregar</button>
+                </div>
+                
+                <div class="task-list" id="taskList">
+                    <!-- Las tareas se agregarán aquí dinámicamente -->
+                </div>
+            </div>
+            
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <button id="prevMonth">←</button>
+                    <h2 id="currentMonth">Septiembre 2025</h2>
+                    <button id="nextMonth">→</button>
+                </div>
+                <div class="weekdays">
+                    <div>Lun</div>
+                    <div>Mar</div>
+                    <div>Mié</div>
+                    <div>Jue</div>
+                    <div>Vie</div>
+                    <div>Sáb</div>
+                    <div>Dom</div>
+                </div>
+                <div class="days" id="calendarDays">
+                    <!-- Los días del calendario se generarán con JavaScript -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
