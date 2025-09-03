@@ -1,43 +1,34 @@
-const taskRepository = require('../services/taskRepository');
+let tasks = [];
 
-function list(req, res, next) {
-  try {
-    res.json(taskRepository.getAll());
-  } catch (err) {
-    next(err);
-  }
+function getTasks(req, res) {
+  res.json(tasks);
 }
 
-function create(req, res, next) {
-  try {
-    const task = {
-      id: Date.now().toString(),
-      title: req.body.title,
-      date: req.body.date,
-      completed: false
-    };
-    taskRepository.add(task);
-    res.status(201).json(task);
-  } catch (err) {
-    next(err);
-  }
+function createTask(req, res) {
+  const task = {
+    id: Date.now().toString(),
+    title: req.body.title,
+    date: req.body.date,
+    completed: false
+  };
+  tasks.push(task);
+  res.status(201).json(task);
 }
 
-function update(req, res, next) {
-  const task = taskRepository.update(req.params.id, req.body);
-  if (!task) return next({ status: 404, message: 'Tarea no encontrada' });
+function updateTask(req, res) {
+  const task = tasks.find(t => t.id === req.params.id);
+  if (!task) return res.status(404).send('Tarea no encontrada');
+
+  task.completed = req.body.completed !== undefined ? req.body.completed : task.completed;
+  task.title = req.body.title || task.title;
+  task.date = req.body.date || task.date;
+
   res.json(task);
 }
 
-function remove(req, res, next) {
-  const removed = taskRepository.remove(req.params.id);
-  if (!removed) return next({ status: 404, message: 'Tarea no encontrada' });
+function deleteTask(req, res) {
+  tasks = tasks.filter(t => t.id !== req.params.id);
   res.status(204).send();
 }
 
-module.exports = {
-  list,
-  create,
-  update,
-  remove
-};
+module.exports = { getTasks, createTask, updateTask, deleteTask };

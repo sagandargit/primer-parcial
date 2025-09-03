@@ -11,20 +11,20 @@
         <header>
             <h1>Gestor de Tareas</h1>
         </header>
-        
+
         <main>
             <div class="tasks-section">
                 <div class="add-task">
                     <input type="text" id="taskInput" placeholder="Nueva tarea...">
                     <input type="date" id="taskDate">
-                    <button onclick="addTask()">Agregar</button>
+                    <button id="addTaskButton">Agregar</button>
                 </div>
-                
+
                 <div class="task-list" id="taskList">
                     <!-- Las tareas se agregarán aquí dinámicamente -->
                 </div>
             </div>
-            
+
             <div class="calendar-section">
                 <div class="calendar-header">
                     <button id="prevMonth">←</button>
@@ -47,6 +47,6 @@
         </main>
     </div>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
