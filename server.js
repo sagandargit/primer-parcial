@@ -1,9 +1,9 @@
 const express = require('express');
 const path = require('path');
 const taskRoutes = require('./src/routes/taskRoutes');
+const { PORT } = require('./src/config');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
