@@ -265,12 +265,7 @@ function filterTasksByDate(date) {
     // Agregar botón para volver a mostrar todas las tareas
     const backButton = document.createElement('button');
     backButton.textContent = 'Volver a todas las tareas';
-    backButton.style.marginTop = '15px';
-    backButton.style.padding = '8px 15px';
-    backButton.style.backgroundColor = '#f0f0f0';
-    backButton.style.border = '1px solid #ddd';
-    backButton.style.borderRadius = '4px';
-    backButton.style.cursor = 'pointer';
+    backButton.classList.add('back-button');
     backButton.addEventListener('click', renderTasks);
     
     taskList.appendChild(backButton);
